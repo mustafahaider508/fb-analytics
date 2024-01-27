@@ -9,7 +9,16 @@
     <p id="profile"></p>
 
     <script>
-      // <!-- Add the Facebook SDK for Javascript -->
+      window.fbAsyncInit = function () {
+        FB.init({
+          appId: "2362603297463376",
+          cookie: true,
+          xfbml: true,
+          version: "v19.0",
+        });
+
+        FB.AppEvents.logPageView();
+      };
 
       (function (d, s, id) {
         var js,
@@ -23,30 +32,20 @@
         fjs.parentNode.insertBefore(js, fjs);
       })(document, "script", "facebook-jssdk");
 
-      window.fbAsyncInit = function () {
-        // <!-- Initialize the SDK with your app and the Graph API version for your app -->
-        FB.init({
-          appId: "2362603297463376",
-          xfbml: true,
-          version: "v19.0",
+      FB.getLoginStatus(function (response) {
+        statusChangeCallback(response);
+      });
+
+      <fb:login-button
+        scope="public_profile,email"
+        onlogin="checkLoginState();"
+      ></fb:login-button>;
+
+      function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+          statusChangeCallback(response);
         });
-        FB.login(function (response) {
-          console.log("response", response);
-          if (response.authResponse) {
-            console.log("Welcome!  Fetching your information.... ");
-            FB.api("/me", { fields: "name, email" }, function (response) {
-              document.getElementById("profile").innerHTML =
-                "Good to see you, " +
-                response.name +
-                ". i see your email address is " +
-                response.email;
-            });
-          } else {
-            //    <!-- If you are not logged in, the login dialog will open for you to login asking for permission to get your public profile and email -->
-            console.log("User cancelled login or did not fully authorize.");
-          }
-        });
-      };
+      }
     </script>
   </body>
 </html>
