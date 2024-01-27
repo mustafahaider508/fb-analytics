@@ -24,6 +24,12 @@
         FB.AppEvents.logPageView();
       };
 
+      function checkLoginState() {
+        FB.getLoginStatus(function (response) {
+          console.log("ress", response);
+        });
+      }
+
       (function (d, s, id) {
         var js,
           fjs = d.getElementsByTagName(s)[0];
@@ -35,18 +41,6 @@
         js.src = "https://connect.facebook.net/en_US/sdk.js";
         fjs.parentNode.insertBefore(js, fjs);
       })(document, "script", "facebook-jssdk");
-
-      FB.getLoginStatus(function (response) {
-        console.log("ress", response);
-        statusChangeCallback(response);
-      });
-
-      function checkLoginState() {
-        FB.getLoginStatus(function (response) {
-          console.log("ress", response);
-          statusChangeCallback(response);
-        });
-      }
     </script>
   </body>
 </html>
