@@ -7,6 +7,11 @@
     <!-- Set the element id for the JSON response -->
 
     <p id="profile"></p>
+    <fb:login-button
+      scope="public_profile,email"
+      onlogin="checkLoginState();"
+    ></fb:login-button
+    >;
 
     <script>
       window.fbAsyncInit = function () {
@@ -36,11 +41,6 @@
         console.log("ress", response);
         statusChangeCallback(response);
       });
-
-      <fb:login-button
-        scope="public_profile,email"
-        onlogin="checkLoginState();"
-      ></fb:login-button>;
 
       function checkLoginState() {
         FB.getLoginStatus(function (response) {
